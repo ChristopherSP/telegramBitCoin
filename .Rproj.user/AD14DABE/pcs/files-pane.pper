@@ -1,0 +1,9 @@
+{
+    "path" : "~/Downloads/telegramBitCoin",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+library(rvest)
+library(data.table)
+library(stringi)
+
+monthsUSD = c()
+url = "https://coinmarketcap.com/currencies/bitcoin/historical-data/?start=20130428&end=20171224"
+
+bitcoin_hist = url %>% 
+  read_html %>% 
+  html_node("table.table") %>% 
+  html_table %>% 
+  as.data.table
+
+bitcoin_hist[,Date := stri_replace_all_fixed(Date,",","")]
+
+bitcoin_hist[, c("month", "day", "year") := tstrsplit(Date, " ", fixed=TRUE)]
+
+bitcoin_hist[,date := as.Date(Date,format = "%b %d %Y", tz = "America/New York")]
+bitcoin_hist
+bitcoin_hist[,date := NULL]
